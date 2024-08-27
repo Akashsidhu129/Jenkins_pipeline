@@ -34,11 +34,13 @@ pipeline {
                     mail to: "$EMAIL_RECIPIENT",
                         subject: "Unit and Integration Tests: SUCCESS",
                         body: "The Unit and Integration tests have passed."
+                        attachLog: true
                 }
                 failure {
                     mail to: "$EMAIL_RECIPIENT",
                         subject: "Unit and Integration Tests: FAILURE",
                         body: "The Unit and Integration tests have failed."
+                        attachLog: true
                 }
             }
         }
@@ -66,11 +68,13 @@ pipeline {
                     mail to: "$EMAIL_RECIPIENT",
                         subject: "Security Scan: SUCCESS",
                         body: "The security scan has passed."
+                        attachLog: true
                 }
                 failure {
                     mail to: "$EMAIL_RECIPIENT",
                         subject: "Security Scan: FAILURE",
                         body: "The security scan has failed."
+                        attachLog: true
                 }
             }
         }
@@ -115,12 +119,14 @@ pipeline {
             mail to: "$EMAIL_RECIPIENT",
                 subject: "Build Status: SUCCESS",
                 body: "The Jenkins pipeline has successfully completed all stages."
+                attachLog: true
         }
         failure {
             echo "Pipeline execution failed"
             mail to: "$EMAIL_RECIPIENT",
                 subject: "Build Status: FAILURE",
                 body: "The Jenkins pipeline has failed."
+                attachLog: true
         }
     }
 }
