@@ -6,17 +6,16 @@ pipeline {
         testing_environment = "TASK_6.1C"
         PRODUCTION_ENVIRONMENT = "Akashdeep Singh Sidhu"
         EMAIL_RECIPIENT = "akashsidhu129.aus@gmail.com"
-        LOG_FILE = "stage_logs.txt"
     }
     
     stages {
         stage('Build') {
             steps {
                 script {
-                    echo "Getting source code from: $DIRECTORY_PATH" >> LOG_FILE
-                    echo "Building the code using Maven..." >> LOG_FILE
+                    echo "Getting source code from: $DIRECTORY_PATH"
+                    echo "Building the code using Maven..."
                     // Tool: Maven for building automation
-                    echo "Tool used: Maven" >> LOG_FILE
+                    echo "Tool used: Maven"
                 }
             }
         }
@@ -24,24 +23,22 @@ pipeline {
         stage('Unit and Integration Tests') {
             steps {
                 script {
-                    echo "Running Unit tests using JUnit..." >> LOG_FILE
-                    echo "Running Integration tests using Selenium..." >> LOG_FILE
+                    echo "Running Unit tests using JUnit..."
+                    echo "Running Integration tests using Selenium..."
                     // Tools: JUnit for unit testing, Selenium for integration testing
-                    echo "Tools used: Java, Selenium" >> LOG_FILE
+                    echo "Tools used: Java, Selenium"
                 }
             }
             post {
                 success {
                     mail to: "$EMAIL_RECIPIENT",
                         subject: "Unit and Integration Tests: SUCCESS",
-                        body: "The Unit and Integration tests have passed. Check logs attached.",
-                        attachments: LOG_FILE
+                        body: "The Unit and Integration tests have passed."
                 }
                 failure {
                     mail to: "$EMAIL_RECIPIENT",
                         subject: "Unit and Integration Tests: FAILURE",
-                        body: "The Unit and Integration tests have failed. Check logs attached.",
-                        attachments: LOG_FILE
+                        body: "The Unit and Integration tests have failed."
                 }
             }
         }
@@ -49,9 +46,9 @@ pipeline {
         stage('Code Analysis') {
             steps {
                 script {
-                    echo "Performing code analysis using SonarQube..." >> LOG_FILE
+                    echo "Performing code analysis using SonarQube..."
                     // Tool: SonarQube for code quality analysis
-                    echo "Tool used: SonarQube" >> LOG_FILE
+                    echo "Tool used: SonarQube"
                 }
             }
         }
@@ -59,23 +56,21 @@ pipeline {
         stage('Security Scan') {
             steps {
                 script {
-                    echo "Performing security scan using OWASP Dependency-Check..." >> LOG_FILE
+                    echo "Performing security scan using OWASP Dependency-Check..."
                     // Tool: OWASP Dependency-Check for security scanning
-                    echo "Tool used: OWASP Dependency-Check" >> LOG_FILE
+                    echo "Tool used: OWASP Dependency-Check"
                 }
             }
             post {
                 success {
                     mail to: "$EMAIL_RECIPIENT",
                         subject: "Security Scan: SUCCESS",
-                        body: "The security scan has passed. Check logs attached.",
-                        attachments: LOG_FILE
+                        body: "The security scan has passed."
                 }
                 failure {
                     mail to: "$EMAIL_RECIPIENT",
                         subject: "Security Scan: FAILURE",
-                        body: "The security scan has failed. Check logs attached.",
-                        attachments: LOG_FILE
+                        body: "The security scan has failed."
                 }
             }
         }
@@ -83,9 +78,9 @@ pipeline {
         stage('Deploy to Staging') {
             steps {
                 script {
-                    echo "Deploying the application to the staging environment: $TESTING_ENVIRONMENT" >> LOG_FILE
+                    echo "Deploying the application to the staging environment: $TESTING_ENVIRONMENT"
                     // Deployment to staging server (e.g., AWS EC2 instance)
-                    echo "Staging server: AWS EC2 instance" >> LOG_FILE
+                    echo "Staging server: AWS EC2 instance"
                 }
             }
         }
@@ -93,9 +88,9 @@ pipeline {
         stage('Integration Tests on Staging') {
             steps {
                 script {
-                    echo "Running Integration tests on the staging environment..." >> LOG_FILE
+                    echo "Running Integration tests on the staging environment..."
                     // Running integration tests on staging environment
-                    echo "Tools used: Selenium" >> LOG_FILE
+                    echo "Tools used: Selenium"
                 }
             }
         }
@@ -103,9 +98,9 @@ pipeline {
         stage('Deploy to Production') {
             steps {
                 script {
-                    echo "Deploying the application to the production environment: $PRODUCTION_ENVIRONMENT" >> LOG_FILE
+                    echo "Deploying the application to the production environment: $PRODUCTION_ENVIRONMENT"
                     // Deployment to production server (e.g., AWS EC2 instance)
-                    echo "Production server: AWS EC2 instance" >> LOG_FILE
+                    echo "Production server: AWS EC2 instance"
                 }
             }
         }
