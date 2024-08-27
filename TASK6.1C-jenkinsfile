@@ -2,8 +2,8 @@ pipeline {
     agent any
     
     environment {
-        directory_path = "/users/akashdeep/.jenkins"
-        testing_environment = "TASK_6.1C"
+        DIRECTORY_PATH = "/users/akashdeep/.jenkins"
+        TESTING_ENVIRONMENT = "TASK_6.1C"
         PRODUCTION_ENVIRONMENT = "Akashdeep Singh Sidhu"
         EMAIL_RECIPIENT = "akashsidhu129.aus@gmail.com"
     }
@@ -26,7 +26,7 @@ pipeline {
                     echo "Running Unit tests using JUnit..."
                     echo "Running Integration tests using Selenium..."
                     // Tools: JUnit for unit testing, Selenium for integration testing
-                    echo "Tools used: Java, Selenium"
+                    echo "Tools used: JUnit, Selenium"
                 }
             }
             post {
@@ -34,13 +34,11 @@ pipeline {
                     mail to: "$EMAIL_RECIPIENT",
                         subject: "Unit and Integration Tests: SUCCESS",
                         body: "The Unit and Integration tests have passed."
-                        attachLog: true
                 }
                 failure {
                     mail to: "$EMAIL_RECIPIENT",
                         subject: "Unit and Integration Tests: FAILURE",
                         body: "The Unit and Integration tests have failed."
-                        attachLog: true
                 }
             }
         }
@@ -68,13 +66,11 @@ pipeline {
                     mail to: "$EMAIL_RECIPIENT",
                         subject: "Security Scan: SUCCESS",
                         body: "The security scan has passed."
-                        attachLog: true
                 }
                 failure {
                     mail to: "$EMAIL_RECIPIENT",
                         subject: "Security Scan: FAILURE",
                         body: "The security scan has failed."
-                        attachLog: true
                 }
             }
         }
@@ -119,14 +115,12 @@ pipeline {
             mail to: "$EMAIL_RECIPIENT",
                 subject: "Build Status: SUCCESS",
                 body: "The Jenkins pipeline has successfully completed all stages."
-                attachLog: true
         }
         failure {
             echo "Pipeline execution failed"
             mail to: "$EMAIL_RECIPIENT",
                 subject: "Build Status: FAILURE",
                 body: "The Jenkins pipeline has failed."
-                attachLog: true
         }
     }
 }
