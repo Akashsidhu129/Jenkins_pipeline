@@ -6,64 +6,107 @@ pipeline {
         testing_environment = "TASK_6.1C"
         PRODUCTION_ENVIRONMENT = "Akashdeep Singh Sidhu"
         EMAIL_RECIPIENT = "akashsidhu129.aus@gmail.com"
+        LOG_FILE = "stage_logs.txt"
     }
     
     stages {
         stage('Build') {
             steps {
-                echo "Getting source code from: $DIRECTORY_PATH"
-                echo "Building the code using Maven..."
-                // Tool: Maven for building automation
-                echo "Tool used: Maven"
+                script {
+                    echo "Getting source code from: $DIRECTORY_PATH" >> LOG_FILE
+                    echo "Building the code using Maven..." >> LOG_FILE
+                    // Tool: Maven for building automation
+                    echo "Tool used: Maven" >> LOG_FILE
+                }
             }
         }
         
         stage('Unit and Integration Tests') {
             steps {
-                echo "Running Unit tests using JUnit..."
-                echo "Running Integration tests using Selenium..."
-                // Tools: JUnit for unit testing, Selenium for integration testing
-                echo "Tools used: Java, Selenium"
+                script {
+                    echo "Running Unit tests using JUnit..." >> LOG_FILE
+                    echo "Running Integration tests using Selenium..." >> LOG_FILE
+                    // Tools: JUnit for unit testing, Selenium for integration testing
+                    echo "Tools used: Java, Selenium" >> LOG_FILE
+                }
+            }
+            post {
+                success {
+                    mail to: "$EMAIL_RECIPIENT",
+                        subject: "Unit and Integration Tests: SUCCESS",
+                        body: "The Unit and Integration tests have passed. Check logs attached.",
+                        attachments: LOG_FILE
+                }
+                failure {
+                    mail to: "$EMAIL_RECIPIENT",
+                        subject: "Unit and Integration Tests: FAILURE",
+                        body: "The Unit and Integration tests have failed. Check logs attached.",
+                        attachments: LOG_FILE
+                }
             }
         }
         
         stage('Code Analysis') {
             steps {
-                echo "Performing code analysis using SonarQube..."
-                // Tool: SonarQube for code quality analysis
-                echo "Tool used: SonarQube"
+                script {
+                    echo "Performing code analysis using SonarQube..." >> LOG_FILE
+                    // Tool: SonarQube for code quality analysis
+                    echo "Tool used: SonarQube" >> LOG_FILE
+                }
             }
         }
         
         stage('Security Scan') {
             steps {
-                echo "Performing security scan using OWASP Dependency-Check..."
-                // Tool: OWASP Dependency-Check for security scanning
-                echo "Tool used: OWASP Dependency-Check"
+                script {
+                    echo "Performing security scan using OWASP Dependency-Check..." >> LOG_FILE
+                    // Tool: OWASP Dependency-Check for security scanning
+                    echo "Tool used: OWASP Dependency-Check" >> LOG_FILE
+                }
+            }
+            post {
+                success {
+                    mail to: "$EMAIL_RECIPIENT",
+                        subject: "Security Scan: SUCCESS",
+                        body: "The security scan has passed. Check logs attached.",
+                        attachments: LOG_FILE
+                }
+                failure {
+                    mail to: "$EMAIL_RECIPIENT",
+                        subject: "Security Scan: FAILURE",
+                        body: "The security scan has failed. Check logs attached.",
+                        attachments: LOG_FILE
+                }
             }
         }
         
         stage('Deploy to Staging') {
             steps {
-                echo "Deploying the application to the staging environment: $TESTING_ENVIRONMENT"
-                // Deployment to staging server (e.g., AWS EC2 instance)
-                echo "Staging server: AWS EC2 instance"
+                script {
+                    echo "Deploying the application to the staging environment: $TESTING_ENVIRONMENT" >> LOG_FILE
+                    // Deployment to staging server (e.g., AWS EC2 instance)
+                    echo "Staging server: AWS EC2 instance" >> LOG_FILE
+                }
             }
         }
         
         stage('Integration Tests on Staging') {
             steps {
-                echo "Running Integration tests on the staging environment..."
-                // Running integration tests on staging environment
-                echo "Tools used: Selenium"
+                script {
+                    echo "Running Integration tests on the staging environment..." >> LOG_FILE
+                    // Running integration tests on staging environment
+                    echo "Tools used: Selenium" >> LOG_FILE
+                }
             }
         }
         
         stage('Deploy to Production') {
             steps {
-                echo "Deploying the application to the production environment: $PRODUCTION_ENVIRONMENT"
-                // Deployment to production server (e.g., AWS EC2 instance)
-                echo "Production server: AWS EC2 instance"
+                script {
+                    echo "Deploying the application to the production environment: $PRODUCTION_ENVIRONMENT" >> LOG_FILE
+                    // Deployment to production server (e.g., AWS EC2 instance)
+                    echo "Production server: AWS EC2 instance" >> LOG_FILE
+                }
             }
         }
     }
