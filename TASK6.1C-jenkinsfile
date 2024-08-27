@@ -1,0 +1,62 @@
+pipeline {
+    agent any
+    
+    environment {
+        DIRECTORY_PATH = "/Users/akashdeep/.jenkins"
+        TESTING_ENVIRONMENT = "Task 5.1P"
+        PRODUCTION_ENVIRONMENT = "Akashdeep"
+    }
+    
+    stages {
+        stage('Build') {
+            steps {
+                echo "Getting source code from: $DIRECTORY_PATH"
+                echo "Compiling the code and create necessary files...."
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                echo "Running Unit tests"
+                echo "Running Integration tests"
+            }
+        }
+        
+        stage('Code Quality Check') {
+            steps {
+                echo "Checking quality of the code"
+            }
+        }
+        
+        stage('Deploy') {
+            steps {
+                echo "Deploy the application to a testing environment: $TESTING_ENVIRONMENT"
+            }
+        }
+        
+        stage('Approval') {
+            steps {
+                echo "Waiting for manual approval..."
+                sleep 10
+            }
+        }
+        
+        stage('Deploy to Production') {
+            steps {
+                echo "Deploy the code to the production environment: $PRODUCTION_ENVIRONMENT"
+            }
+        }
+    }
+    
+    post {
+        always {
+            echo "Pipeline execution completed"
+        }
+        success {
+            echo "Pipeline executed successfully"
+        }
+        failure {
+            echo "Pipeline execution failed"
+        }
+    }
+}
