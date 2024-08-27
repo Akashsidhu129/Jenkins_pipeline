@@ -66,11 +66,13 @@ pipeline {
                     mail to: "$EMAIL_RECIPIENT",
                         subject: "Security Scan: SUCCESS",
                         body: "The security scan has passed."
+                        attachLog: true
                 }
                 failure {
                     mail to: "$EMAIL_RECIPIENT",
                         subject: "Security Scan: FAILURE",
                         body: "The security scan has failed."
+                        attachLog: true
                 }
             }
         }
