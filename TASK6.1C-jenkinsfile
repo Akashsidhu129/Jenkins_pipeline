@@ -2,48 +2,68 @@ pipeline {
     agent any
     
     environment {
-        DIRECTORY_PATH = "/Users/akashdeep/.jenkins"
-        TESTING_ENVIRONMENT = "Task 5.1P"
-        PRODUCTION_ENVIRONMENT = "Akashdeep"
+        directory_path = "/users/akashdeep/.jenkins"
+        testing_environment = "TASK_6.1C"
+        PRODUCTION_ENVIRONMENT = "Akashdeep Singh Sidhu"
+        EMAIL_RECIPIENT = "akashsidhu129.aus@gmail.com"
     }
     
     stages {
         stage('Build') {
             steps {
                 echo "Getting source code from: $DIRECTORY_PATH"
-                echo "Compiling the code and create necessary files...."
+                echo "Building the code using Maven..."
+                // Tool: Maven for building automation
+                echo "Tool used: Maven"
             }
         }
         
-        stage('Test') {
+        stage('Unit and Integration Tests') {
             steps {
-                echo "Running Unit tests"
-                echo "Running Integration tests"
+                echo "Running Unit tests using JUnit..."
+                echo "Running Integration tests using Selenium..."
+                // Tools: JUnit for unit testing, Selenium for integration testing
+                echo "Tools used: Java, Selenium"
             }
         }
         
-        stage('Code Quality Check') {
+        stage('Code Analysis') {
             steps {
-                echo "Checking quality of the code"
+                echo "Performing code analysis using SonarQube..."
+                // Tool: SonarQube for code quality analysis
+                echo "Tool used: SonarQube"
             }
         }
         
-        stage('Deploy') {
+        stage('Security Scan') {
             steps {
-                echo "Deploy the application to a testing environment: $TESTING_ENVIRONMENT"
+                echo "Performing security scan using OWASP Dependency-Check..."
+                // Tool: OWASP Dependency-Check for security scanning
+                echo "Tool used: OWASP Dependency-Check"
             }
         }
         
-        stage('Approval') {
+        stage('Deploy to Staging') {
             steps {
-                echo "Waiting for manual approval..."
-                sleep 10
+                echo "Deploying the application to the staging environment: $TESTING_ENVIRONMENT"
+                // Deployment to staging server (e.g., AWS EC2 instance)
+                echo "Staging server: AWS EC2 instance"
+            }
+        }
+        
+        stage('Integration Tests on Staging') {
+            steps {
+                echo "Running Integration tests on the staging environment..."
+                // Running integration tests on staging environment
+                echo "Tools used: Selenium"
             }
         }
         
         stage('Deploy to Production') {
             steps {
-                echo "Deploy the code to the production environment: $PRODUCTION_ENVIRONMENT"
+                echo "Deploying the application to the production environment: $PRODUCTION_ENVIRONMENT"
+                // Deployment to production server (e.g., AWS EC2 instance)
+                echo "Production server: AWS EC2 instance"
             }
         }
     }
@@ -54,9 +74,15 @@ pipeline {
         }
         success {
             echo "Pipeline executed successfully"
+            mail to: "$EMAIL_RECIPIENT",
+                subject: "Build Status: SUCCESS",
+                body: "The Jenkins pipeline has successfully completed all stages."
         }
         failure {
             echo "Pipeline execution failed"
+            mail to: "$EMAIL_RECIPIENT",
+                subject: "Build Status: FAILURE",
+                body: "The Jenkins pipeline has failed."
         }
     }
 }
