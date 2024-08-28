@@ -23,7 +23,7 @@ pipeline {
             steps {
                 script {
                     echo "Running Unit tests using JUnit.."
-                    echo "Running Integration tests using Selenium..."
+                    echo "Running Integration tests using Selenium.."
                     echo "Tools used: JUnit, Selenium"
                 }
             }
@@ -46,7 +46,7 @@ pipeline {
         stage('Code Analysis') {
             steps {
                 script {
-                    echo "Performing code analysis using SonarQube..."
+                    echo "Performing code analysis using SonarQube.."
                     echo "Tool used: SonarQube"
                 }
             }
@@ -55,7 +55,7 @@ pipeline {
         stage('Security Scan') {
             steps {
                 script {
-                    echo "Performing security scan using OWASP Dependency-Check..."
+                    echo "Performing security scan using OWASP Dependency-Check.."
                     echo "Tool used: OWASP Dependency-Check"
                 }
             }
@@ -87,7 +87,7 @@ pipeline {
         stage('Integration Tests on Staging') {
             steps {
                 script {
-                    echo "Running Integration tests on the staging environment..."
+                    echo "Running Integration tests on the staging environment.."
                     echo "Tools used: Selenium"
                 }
             }
