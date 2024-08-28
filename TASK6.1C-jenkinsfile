@@ -112,14 +112,14 @@ pipeline {
             emailext to: "$EMAIL_RECIPIENT",
                 subject: "Build Status: SUCCESS",
                 body: "The Jenkins pipeline has successfully completed all stages.",
-                // attachLog: true
+                //attachLog: true
         }
         failure {
             echo "Pipeline execution failed"
             emailext to: "$EMAIL_RECIPIENT",
                 subject: "Build Status: FAILURE",
                 body: "The Jenkins pipeline has failed.",
-                // attachLog: true
+                //attachLog: true
         }
     }
 }
