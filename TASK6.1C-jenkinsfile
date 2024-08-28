@@ -22,7 +22,7 @@ pipeline {
         stage('Unit and Integration Tests') {
             steps {
                 script {
-                    echo "Running Unit tests using JUnit..."
+                    echo "Running Unit tests using JUnit.."
                     echo "Running Integration tests using Selenium..."
                     echo "Tools used: JUnit, Selenium"
                 }
