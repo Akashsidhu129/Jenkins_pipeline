@@ -32,7 +32,7 @@ pipeline {
                     emailext to: "$EMAIL_RECIPIENT",
                         subject: "Unit and Integration Tests: SUCCESS",
                         body: "The Unit and Integration tests have passed.",
-                        attachLog: true
+                        attachLo: true
                 }
                 failure {
                     emailext to: "$EMAIL_RECIPIENT",
