@@ -23,7 +23,7 @@ pipeline {
             steps {
                 script {
                     echo "Running Unit tests using JUnit.."
-                    echo "Running Integration tests using Selenium.."
+                    echo "Running Integration tests using Selenium..."
                     echo "Tools used: JUnit, Selenium"
                 }
             }
@@ -32,7 +32,7 @@ pipeline {
                     emailext to: "$EMAIL_RECIPIENT",
                         subject: "Unit and Integration Tests: SUCCESS",
                         body: "The Unit and Integration tests have passed.",
-                        attachLo: true
+                        attachLog: true
                 }
                 failure {
                     emailext to: "$EMAIL_RECIPIENT",
